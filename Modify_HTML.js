@@ -1,24 +1,3 @@
-
-/*
-// disable all externally linked stylesheets
-
-for( i = 0; (l = document.getElementsByTagName("link")[i]); i++ ) {
-    if( l.getAttribute("rel").indexOf("tylesheet") >= 0 ) l.disabled = true;
-}
-*/
-
-/* //add in Twitter Bootstrap javascript
-var bootstrapjs = window.document.createElement('script');
-bootstrapjs.type = 'text/javascript';
-bootstrapjs.src = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.3/bootstrap.min.js';
-document.getElementsByTagName("HEAD")[0].appendChild(bootstrapjs);
-
-//add in latest jQuery javascript
-var jquery = window.document.createElement('script');
-jquery.type = 'text/javascript';
-jquery.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
-document.getElementsByTagName("HEAD")[0].appendChild(jquery); */
-
 /*****************************************************************************************************************************
 /Function to remove css and js attribues
 ******************************************************************************************************************************/
@@ -64,6 +43,42 @@ strVar += "	<\/div>";
 //document.getElementById("main_header").setAttribute("class","navbar navbar-fixed-top"); 
 //document.getElementById("main_header").setAttribute("id",""); 
 
-$("#main_header").attr("class","navbar navbar-fixed-top");
-$(".logo").attr("class","brand");
-$("#main_header").wrapInner("<div class=\"navbar-inner\"><div class=\"container\"></div></div>");
+/*****************************************************************************************************************************
+/ Build the main navigation
+******************************************************************************************************************************/
+$("style").remove(); //remove hard coded styles
+$(".sub_icon").remove(); //remove navigation sub icons for now
+$(".clear").remove(); //remove clear divs
+$(".margin1").remove(); //remove margin1 divs
+$("#main_header").attr("class","navbar navbar-fixed-top"); //add classes to header
+$("#main_header").wrapInner("<div class=\"navbar-inner\"><div class=\"container\" id=\"collapse_container\"></div></div>"); //add divs for  nav
+$("#collapse_container").prepend("<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\"><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>"); //add divs for collapsed nav
+$("#collapse_container").append($(".logo").detach()); //move brand outside of the navigation
+$("#ctl00_HeaderLogo1").text("ADC") //for now replace logo with text link ***later get better icon / smaller logo or make this separate from logo
+$(".logo").attr("class","brand"); //change class of logo/home
+$("#collapse_container").append($("#collapse_container > .main").detach()); //move the other header content after the brand
+$("#collapse_container > .main").attr("class","nav-collapse"); //change class to nav-collapse
+$(".nav-collapse").prepend($(".main_nav > .nav").detach()); //move the main nav to the correct location
+$(".nav-collapse > .nav > .m_linkon").addClass("active"); //make the selected link show selected
+$(".nav-collapse > .nav > li:first").after("<li id=\"rule_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\">Rules</a></li>"); //add a Rules tab
+$(".nav-collapse > .nav > #rule_nav").after("<li id=\"energy_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\">Energy</a></li>"); //add an Energy tab
+$(".nav-collapse > .nav > #energy_nav").after("<li id=\"users_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\">Users</a></li>"); //add a Users tab
+$(".nav-collapse > .nav > #users_nav").after("<li id=\"help_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Help <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a help dropdown tab
+$(".nav-collapse > .nav > #help_nav").after("<li id=\"settings_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Settings <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a settings dropdown tab
+$("#help_nav > ul").prepend($("#ctl00_HeaderLinks1_lnkSupportCenter").detach()); //move Support link under help tab
+$("#help_nav > ul").prepend($("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").detach()); //move page help under help tab
+$(".page_help_link").remove(); //remove the div that held the help link
+$("#help_nav > ul > a").attr("data-toggle","tab"); //add classes to all links
+$("#help_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
+$("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").removeAttr("style"); //remove style from help link 
+$("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").attr("style","cursor : pointer"); //add the pointer style back
+$("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").text("About this page");  //change the text of the help link
+$("#ctl00_HeaderLinks1_lnkSupportCenter").attr("href","https://www.alarm.com/web/Support/Issues/Issue_Summary.aspx"); //put the full link in, not working relative for some reason
+
+/* <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#dropdown1" data-toggle="tab">@fat</a></li>
+                <li><a href="#dropdown2" data-toggle="tab">@mdo</a></li>
+              </ul>
+            </li> */
