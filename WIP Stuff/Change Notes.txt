@@ -1,0 +1,10 @@
+changed top ID to class <div class="navbar navbar-fixed-top navbar-inner">
+ 
+ add brand class to logo
+ 
+ for logo image added background color of white -- style="border-width:0px; background-color:white"
+	- probably also should resize the logo (height & width attributes), but wait to see if possible to bring inline with other items.
+	
+	
+	
+Edited the default bootstrap.css to get images from code.google.com
