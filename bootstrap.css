@@ -3811,15 +3811,16 @@ input[type="submit"].btn.btn-mini {
 }
 
 .navbar .nav > li > a:hover {
-  color: #ffffff;
+  color: #E4701E; /*CHANGED*/
   text-decoration: none;
   background-color: transparent;
 }
 
 .navbar .nav .active > a,
 .navbar .nav .active > a:hover {
-  color: #ffffff;
+  color: #E4701E; /*CHANGED*/
   text-decoration: none;
+  font-weight:bold;
   background-color: #222222;
 }
 

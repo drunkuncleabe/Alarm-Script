@@ -46,10 +46,15 @@ strVar += "	<\/div>";
 /*****************************************************************************************************************************
 / Build the main navigation
 ******************************************************************************************************************************/
+//hide stuff I don't want to see right now
 $("style").remove(); //remove hard coded styles
 $(".sub_icon").remove(); //remove navigation sub icons for now
 $(".clear").remove(); //remove clear divs
 $(".margin1").remove(); //remove margin1 divs
+$(".side_buttons").remove(); //remove side buttons
+$(".widget.features_widget.round5").remove(); //remove the features widget
+
+//buiild the navigation
 $("#main_header").attr("class","navbar navbar-fixed-top"); //add classes to header
 $("#main_header").wrapInner("<div class=\"navbar-inner\"><div class=\"container\" id=\"collapse_container\"></div></div>"); //add divs for  nav
 $("#collapse_container").prepend("<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\"><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>"); //add divs for collapsed nav
@@ -60,11 +65,16 @@ $("#collapse_container").append($("#collapse_container > .main").detach()); //mo
 $("#collapse_container > .main").attr("class","nav-collapse"); //change class to nav-collapse
 $(".nav-collapse").prepend($(".main_nav > .nav").detach()); //move the main nav to the correct location
 $(".nav-collapse > .nav > .m_linkon").addClass("active"); //make the selected link show selected
-$(".nav-collapse > .nav > li:first").after("<li id=\"rule_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\">Rules</a></li>"); //add a Rules tab
-$(".nav-collapse > .nav > #rule_nav").after("<li id=\"energy_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\">Energy</a></li>"); //add an Energy tab
-$(".nav-collapse > .nav > #energy_nav").after("<li id=\"users_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\">Users</a></li>"); //add a Users tab
-$(".nav-collapse > .nav > #users_nav").after("<li id=\"help_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Help <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a help dropdown tab
-$(".nav-collapse > .nav > #help_nav").after("<li id=\"settings_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Settings <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a settings dropdown tab
+$("[href='/web/Security/SystemSummary.aspx']").html("<i class=\"icon-home icon-white\"></i> Summary</a>");//add icon to Security tab
+$(".nav-collapse > .nav > li:first").after("<li id=\"security_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"/web/Security/SystemSummary.aspx\"><i class=\"icon-lock icon-white\"></i> Security</a></li>");
+$(".nav-collapse > .nav > #security_nav").after("<li id=\"rule_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-list icon-white\"></i> Rules</a></li>"); //add a Rules tab
+$(".nav-collapse > .nav > #rule_nav").after("<li id=\"energy_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-leaf icon-white\"></i> Energy</a></li>"); //add an Energy tab
+$(".nav-collapse > .nav > #energy_nav").after("<li id=\"users_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-user icon-white\"></i> Users</a></li>"); //add a Users tab
+$(".nav-collapse > .nav > #users_nav").after("<li id=\"help_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-question-sign icon-white\"></i> Help <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a help dropdown tab
+$(".nav-collapse > .nav > #help_nav").after("<li id=\"settings_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-wrench icon-white\"></i> Settings <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a settings dropdown tab
+$(".nav-collapse > .nav > #settings_nav").after("<li id=\"logout_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"../Logout.aspx\">Logout</a></li>"); //recreate the logout link
+
+//Links under help
 $("#help_nav > ul").prepend($("#ctl00_HeaderLinks1_lnkSupportCenter").detach()); //move Support link under help tab
 $("#help_nav > ul").prepend($("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").detach()); //move page help under help tab
 $(".page_help_link").remove(); //remove the div that held the help link
@@ -73,12 +83,17 @@ $("#help_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").removeAttr("style"); //remove style from help link 
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").attr("style","cursor : pointer"); //add the pointer style back
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").text("About this page");  //change the text of the help link
-$("#ctl00_HeaderLinks1_lnkSupportCenter").attr("href","https://www.alarm.com/web/Support/Issues/Issue_Summary.aspx"); //put the full link in, not working relative for some reason
 
-/* <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#dropdown1" data-toggle="tab">@fat</a></li>
-                <li><a href="#dropdown2" data-toggle="tab">@mdo</a></li>
-              </ul>
-            </li> */
+//LInks under settings
+$("#settings_nav > ul").prepend($("[href='/web/OtherApps/MobileSite.aspx']").parent().detach());
+$("#settings_nav > ul").prepend($("[href='/web/Profile/AwarenessLevel.aspx']").parent().detach());
+$("[href='/web/OtherApps/MobileSite.aspx']")
+$("#settings_nav > ul > a").attr("data-toggle","tab"); //add classes to all links
+$("#settings_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
+
+//HIde items not needed as top level tabs
+$("[href='/web/Video/LiveView.aspx']").parent().hide();//Hide Video Tab
+$("[href='/web/Automation/Devices.aspx']").parent().hide();//Hide emPower Tab
+$("[href='/web/History/EventHistory.aspx']").parent().hide();//Hide History Tab
+$("[href='/web/Notifications/AddressBook.aspx']").parent().hide();//Hide Notifications Tab
+$(".top_nav").hide(); //hide what is left of the top nav
