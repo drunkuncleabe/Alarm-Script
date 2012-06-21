@@ -14,34 +14,6 @@ function removejscssfile(filename, filetype){
 removejscssfile("jquery-1.6.4.min.js", "js") //remove all occurences of "somescript.js" on page
 removejscssfile("main.css", "css") //remove all occurences "somestyle.css" on page
 removejscssfile("print.css", "css") //remove all occurences "somestyle.css" on page
-/*****************************************************************************************************************************/
-
-/*  var strVar="";
-//strVar += "<div class=\"navbar navbar-fixed-top\">";
-strVar += "	<div class=\"navbar-inner\">";
-strVar += "		<div class=\"container\">";
-strVar += "		 <a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\">";
-strVar += "			<span class=\"icon-bar\"><\/span>";
-strVar += "			<span class=\"icon-bar\"><\/span>";
-strVar += "			<span class=\"icon-bar\"><\/span>";
-strVar += "		<\/a>";
-strVar += "	  <a class=\"brand\" href=\"\/web\/DetermineLandingPage.aspx\"><img src=\"\/webimages\/ProductLogos\/logo_adc_plain.png\" alt=\"Alarm.com\" style=\"border-width:0px;\"><\/a>    ";
-strVar += "			  <div class=\"nav-collapse\">";
-strVar += "			   <ul class=\"nav\">";
-strVar += "				<li><a href=\"#\">abekinney<\/a><\/li>";
-strVar += "				<li><a href=\"#\">Abraham's system<\/a><\/li>";
-strVar += "				<li><a id=\"ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly\" onclick=\"var helpwin=window.open('\/web\/Help.aspx?requestingpage=\/web\/Profile\/AwarenessLevel.aspx','alarmhelp','scrollbars=yes,menubar=no,height=750,width=875,resizable=yes,toolbar=no,location=no,status=no');helpwin.focus();return false;\">Help<\/a><\/li>";
-strVar += "				<li><a id=\"ctl00_HeaderLinks1_lnkSupportCenter\" href=\"..\/Support\/Issues\/Issue_Summary.aspx\">Support Center<\/a><\/li>";
-strVar += "				<li><a id=\"ctl00_HeaderLinks1_logoutLink\" href=\"..\/Logout.aspx\">Logout<\/a><\/li>";
-strVar += "			  <\/ul>";
-strVar += "			 <\/div>";
-strVar += "		<\/div>";
-strVar += "	<\/div>";
-//strVar += "<\/div>"; */
-
-//document.getElementById("main_header").innerHTML=strVar;
-//document.getElementById("main_header").setAttribute("class","navbar navbar-fixed-top"); 
-//document.getElementById("main_header").setAttribute("id",""); 
 
 /*****************************************************************************************************************************
 / Build the main navigation
@@ -57,22 +29,23 @@ $(".widget.features_widget.round5").remove(); //remove the features widget
 //buiild the navigation
 $("#main_header").attr("class","navbar navbar-fixed-top"); //add classes to header
 $("#main_header").wrapInner("<div class=\"navbar-inner\"><div class=\"container\" id=\"collapse_container\"></div></div>"); //add divs for  nav
-$("#collapse_container").prepend("<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\"><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>"); //add divs for collapsed nav
+$("#collapse_container").prepend("<button type=\"button\" class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\"><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span></button>"); //add divs for collapsed nav
 $("#collapse_container").append($(".logo").detach()); //move brand outside of the navigation
-$("#ctl00_HeaderLogo1").text("ADC") //for now replace logo with text link ***later get better icon / smaller logo or make this separate from logo
+$("#ctl00_HeaderLogo1").text("[ Alarm.com Logo ]") //for now replace logo with text link ***later get better icon / smaller logo or make this separate from logo
 $(".logo").attr("class","brand"); //change class of logo/home
 $("#collapse_container").append($("#collapse_container > .main").detach()); //move the other header content after the brand
 $("#collapse_container > .main").attr("class","nav-collapse"); //change class to nav-collapse
 $(".nav-collapse").prepend($(".main_nav > .nav").detach()); //move the main nav to the correct location
 $(".nav-collapse > .nav > .m_linkon").addClass("active"); //make the selected link show selected
-$("[href='/web/Security/SystemSummary.aspx']").html("<i class=\"icon-home icon-white\"></i> Summary</a>");//add icon to Security tab
-$(".nav-collapse > .nav > li:first").after("<li id=\"security_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"/web/Security/SystemSummary.aspx\"><i class=\"icon-lock icon-white\"></i> Security</a></li>");
+$("[href='/web/Security/SystemSummary.aspx']").html("<i class=\"icon-home icon-white\"></i> Summary</a>");//add icon to Summary tab
+$(".nav-collapse > .nav > li:first").after("<li id=\"security_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"/web/Security/Sensors.aspx\"><i class=\"icon-lock icon-white\"></i> Security</a></li>"); //for security tab link deeper - sensors for now
 $(".nav-collapse > .nav > #security_nav").after("<li id=\"rule_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-list icon-white\"></i> Rules</a></li>"); //add a Rules tab
 $(".nav-collapse > .nav > #rule_nav").after("<li id=\"energy_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-leaf icon-white\"></i> Energy</a></li>"); //add an Energy tab
 $(".nav-collapse > .nav > #energy_nav").after("<li id=\"users_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-user icon-white\"></i> Users</a></li>"); //add a Users tab
 $(".nav-collapse > .nav > #users_nav").after("<li id=\"help_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-question-sign icon-white\"></i> Help <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a help dropdown tab
-$(".nav-collapse > .nav > #help_nav").after("<li id=\"settings_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-wrench icon-white\"></i> Settings <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a settings dropdown tab
-$(".nav-collapse > .nav > #settings_nav").after("<li id=\"logout_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"../Logout.aspx\">Logout</a></li>"); //recreate the logout link
+$(".nav-collapse > .nav").after($("#ctl00_HeaderLinks1_lblLoginName").detach()); //move login name to header
+$("#ctl00_HeaderLinks1_lblLoginName").wrap("<ul class=\"nav pull-right\"><li id=\"profile_nav\" class=\"dropdown\"><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"></a><ul class=\"dropdown-menu\"></ul></li></ul>"); //add  tags to make name a Profile dropdown tab pulled to the right
+ $("#ctl00_HeaderLinks1_lblLoginName").after(" <b class=\"caret\"></b>"); //add carat to dropdown
 
 //Links under help
 $("#help_nav > ul").prepend($("#ctl00_HeaderLinks1_lnkSupportCenter").detach()); //move Support link under help tab
@@ -84,16 +57,17 @@ $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").removeAttr("style"); //remove 
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").attr("style","cursor : pointer"); //add the pointer style back
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").text("About this page");  //change the text of the help link
 
-//LInks under settings
-$("#settings_nav > ul").prepend($("[href='/web/OtherApps/MobileSite.aspx']").parent().detach());
-$("#settings_nav > ul").prepend($("[href='/web/Profile/AwarenessLevel.aspx']").parent().detach());
-$("[href='/web/OtherApps/MobileSite.aspx']")
-$("#settings_nav > ul > a").attr("data-toggle","tab"); //add classes to all links
-$("#settings_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
+//LInks under User Profile
+$("#profile_nav > ul").append("<a class=\"sub_link\" href=\"../Logout.aspx\">Logout</a>"); //recreate the logout link
+$("#profile_nav > ul").prepend($("[href='/web/Profile/AwarenessLevel.aspx']").parent().detach());
+$("#profile_nav > ul > a").attr("data-toggle","tab"); //add classes to all links
+$("#profile_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
 
 //HIde items not needed as top level tabs
 $("[href='/web/Video/LiveView.aspx']").parent().hide();//Hide Video Tab
 $("[href='/web/Automation/Devices.aspx']").parent().hide();//Hide emPower Tab
 $("[href='/web/History/EventHistory.aspx']").parent().hide();//Hide History Tab
 $("[href='/web/Notifications/AddressBook.aspx']").parent().hide();//Hide Notifications Tab
+$("[href='/web/Notifications/ImageSensor.aspx']").parent().hide();//Hide IS Tab
+$("[href='/web/OtherApps/MobileSite.aspx']").parent().hide();//Hide Video Tab
 $(".top_nav").hide(); //hide what is left of the top nav
