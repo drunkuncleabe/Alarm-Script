@@ -1,0 +1,205 @@
+<html>
+<head>
+
+   <link href="https://flexible-portal-layout.googlecode.com/svn/trunk/Examples/bootstrap.css" rel="stylesheet">
+   <link href="https://flexible-portal-layout.googlecode.com/svn/trunk/Examples/bootstrap-responsive.css" rel="stylesheet">
+   <link href="custom-abe.css" rel="stylesheet">
+   <link href="chosen/chosen.css" rel="stylesheet">
+
+
+  </head>
+
+<body>
+
+	<div class="container" id="IS_HIstory">
+		<div class="page-header">
+			<h1>Image Sensor History</h1>
+		</div>
+		<div class="well">
+			<div class="controls">
+				<select class="chzn-select" multiple="multiple" id="multiSelect">
+					<option>All Image Sensors</option>
+					<option selected = "selected">Porch IS</option>
+					<option selected = "selected">Front Door IS</option>
+					<option selected = "selected">Porch IS</option>
+					<option>Back Yard</option>
+					<option>Panel View</option>
+					<option>Pool</option>
+				</select>
+			</div>
+		
+		 </div>
+	<div class="well" id="event-history">
+		<div class="row-fluid event-row">
+			<div class="span12 image-event">
+			6/5/2012 4:06 pm - Front Door IS - Arming Event  
+				<div class="row-fluid">
+					<span class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/160x120&text=Image+1" alt=""></a></span>
+					<span class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/160x120&text=Image+2" alt=""></a></span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row-fluid event-row">
+			<div class="span12 security-event">
+			6/5/2012 3:29 pm - Panel Armed Stay
+			</div>
+		</div>
+		
+		<div class="row-fluid event-row">
+			<div class="span12 security-event">
+			6/5/2012 3:29 pm - Panel Armed Stay
+			</div>
+		</div>
+
+		<div class="row-fluid event-row">
+		<div class="span12 image-event">
+			6/5/2012 2:22 pm - Post Disarm
+				<div class="row-fluid">
+					<div class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/160x120&text=Image+1" alt=""></a></div>
+					<div class="span2"><a href="#" class="thumbnail"><img src="http://placehold.it/160x120&text=Image+2+Auto+Zoom" alt=""></a></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row-fluid event-row">
+			<div class="span12 security-event">
+			6/5/2012 3:29 pm - Panel Armed Stay
+			</div>
+		</div>
+	
+	</div> <!-- event history-->
+		
+	</div> <!--container -->
+	
+	<script src="https://flexible-portal-layout.googlecode.com/svn/trunk/Examples/jquery.js"></script>
+   <script src="https://flexible-portal-layout.googlecode.com/svn/trunk/Examples/bootstrap.min.js"></script>
+	<script src="chosen/chosen.jquery.js"></script>
+	<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
+	
+</body>
+</html>
+<!-- 
+<div class="main_box_noshadow">
+        <div>
+		<table class="table_content_customergrid" cellspacing="0" border="0" id="ctl00_phBody_acdgEventHistory" style="border-collapse:collapse;">
+			<tbody><tr class="table_content_customergrid_header">
+				<th align="center" valign="top" scope="col"><a href="javascript:__doPostBack('ctl00$phBody$acdgEventHistory','Sort$device_desc')">Device</a></th><th align="center" valign="top" scope="col"><a href="javascript:__doPostBack('ctl00$phBody$acdgEventHistory','Sort$event_desc')">Event</a></th><th align="center" valign="top" scope="col"><a href="javascript:__doPostBack('ctl00$phBody$acdgEventHistory','Sort$event_date')">Time</a></th>
+			</tr><tr class="table_content_customergrid_row">
+				<td>
+			Image Sensor<td>
+                        <input type="image" name="ctl00$phBody$acdgEventHistory$ctl02$EventDescription1$lnkViewImage" id="ctl00_phBody_acdgEventHistory_ctl02_EventDescription1_lnkViewImage" title="View" class="image_event_view" text="View Image" onmouseover="this.src=this.src.replace('18.png', '18_over.png')" onmouseout="this.src=this.src.replace('18_over.png', '18.png')" src="http://placehold.it/260x180" style="border-width:0px;vertical-align: text-top"> 
+
+
+    
+<span id="ctl00_phBody_acdgEventHistory_ctl02_EventDescription1_lblEventDesc" class="history_desc">Images Uploaded - Arming Event</span>
+
+ 
+
+
+
+                        
+                            
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl02_rptInfoIcons_ctl00_imgInfoIcon" title="Arming Event" class="info_icon" src="../webimages/reason_armed_18.png" alt="Arming Event" style="border-width:0px;">
+                                
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl02_rptInfoIcons_ctl01_imgInfoIcon" title="Post-Disarm" class="info_icon" src="../webimages/reason_disarmed_18.png" alt="Post-Disarm" style="border-width:0px;">
+                                
+                    </td><td>4:06 pm, Jun-5-2012</td>
+			</tr><tr class="table_content_customergrid_alt_row">
+				<td>Image Sensor</td><td>
+                        <input type="image" name="ctl00$phBody$acdgEventHistory$ctl03$EventDescription1$lnkViewImage" id="ctl00_phBody_acdgEventHistory_ctl03_EventDescription1_lnkViewImage" title="View" class="image_event_view" text="View Image" onmouseover="this.src=this.src.replace('18.png', '18_over.png')" onmouseout="this.src=this.src.replace('18_over.png', '18.png')" src="http://placehold.it/260x180" style="border-width:0px;vertical-align: text-top"> 
+
+
+    
+<span id="ctl00_phBody_acdgEventHistory_ctl03_EventDescription1_lblEventDesc" class="history_desc">Images Uploaded - Peek-In Next Motion</span>
+
+ 
+
+
+
+                        
+                            
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl03_rptInfoIcons_ctl00_imgInfoIcon" title="Peek-In" class="info_icon" src="../webimages/reason_peek-in_18.png" alt="Peek-In" style="border-width:0px;">
+                                
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl03_rptInfoIcons_ctl01_imgInfoIcon" title="Daily View" class="info_icon" src="../webimages/reason_daily_view_18.png" alt="Daily View" style="border-width:0px;">
+                                
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl03_rptInfoIcons_ctl02_imgInfoIcon" title="Auto Zoom" class="info_icon" src="../webimages/reason_auto_zoom_18.png" alt="Auto Zoom" style="border-width:0px;">
+                                
+                    </td><td>3:00 pm, Jun-5-2012</td>
+			</tr><tr class="table_content_customergrid_row">
+				<td>Image Sensor</td><td>
+                        <input type="image" name="ctl00$phBody$acdgEventHistory$ctl04$EventDescription1$lnkViewImage" id="ctl00_phBody_acdgEventHistory_ctl04_EventDescription1_lnkViewImage" title="View" class="image_event_view" text="View Image" onmouseover="this.src=this.src.replace('18.png', '18_over.png')" onmouseout="this.src=this.src.replace('18_over.png', '18.png')" src="../webimages/magnifying_view_18.png" style="border-width:0px;vertical-align: text-top"> 
+
+
+    
+<span id="ctl00_phBody_acdgEventHistory_ctl04_EventDescription1_lblEventDesc" class="history_desc">Images Uploaded - Post-Disarm</span>
+
+ 
+
+
+
+                        
+                            
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl04_rptInfoIcons_ctl00_imgInfoIcon" title="Post-Disarm" class="info_icon" src="../webimages/reason_disarmed_18.png" alt="Post-Disarm" style="border-width:0px;">
+                                
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl04_rptInfoIcons_ctl01_imgInfoIcon" title="Auto Zoom" class="info_icon" src="../webimages/reason_auto_zoom_18.png" alt="Auto Zoom" style="border-width:0px;">
+                                
+                    </td><td>2:23 pm, Jun-5-2012</td>
+			</tr><tr class="table_content_customergrid_alt_row">
+				<td>Image Sensor</td><td>
+                         
+
+<input type="image" name="ctl00$phBody$acdgEventHistory$ctl05$EventDescription1$lnkViewEvent" id="ctl00_phBody_acdgEventHistory_ctl05_EventDescription1_lnkViewEvent" title="Upload" class="image_event_details" text="Event Details" navigateurl="#" onmouseover="this.src=this.src.replace('18.png', '18_over.png')" onmouseout="this.src=this.src.replace('18_over.png', '18.png')" rel="5887016" src="../webimages/upload_arrow_18.png" style="border-width:0px;vertical-align: text-top">
+    
+<span id="ctl00_phBody_acdgEventHistory_ctl05_EventDescription1_lblEventDesc" class="history_desc">Images Captured - Arming Event</span>
+
+ 
+
+
+
+                        
+                            
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl05_rptInfoIcons_ctl00_imgInfoIcon" title="Arming Event" class="info_icon" src="../webimages/reason_armed_18.png" alt="Arming Event" style="border-width:0px;">
+                                
+                    </td><td>2:20 pm, Jun-5-2012</td>
+			</tr><tr class="table_content_customergrid_row">
+				<td>Image Sensor</td><td>
+                        <input type="image" name="ctl00$phBody$acdgEventHistory$ctl06$EventDescription1$lnkViewImage" id="ctl00_phBody_acdgEventHistory_ctl06_EventDescription1_lnkViewImage" title="View" class="image_event_view" text="View Image" onmouseover="this.src=this.src.replace('18.png', '18_over.png')" onmouseout="this.src=this.src.replace('18_over.png', '18.png')" src="../webimages/magnifying_view_18.png" style="border-width:0px;vertical-align: text-top"> 
+
+
+    
+<span id="ctl00_phBody_acdgEventHistory_ctl06_EventDescription1_lblEventDesc" class="history_desc">Images Uploaded - Peek-In Now</span>
+
+ 
+
+
+
+                        
+                            
+                                    &nbsp;<img id="ctl00_phBody_acdgEventHistory_ctl06_rptInfoIcons_ctl00_imgInfoIcon" title="Peek-In" class="info_icon" src="../webimages/reason_peek-in_18.png" alt="Peek-In" style="border-width:0px;">
+                                
+                    </td><td>2:18 pm, Jun-5-2012</td>
+			</tr><tr class="table_content_customergrid_pager">
+				<td colspan="3"><table border="0" style="width:100%;">
+					<tbody><tr>
+						<td align="left">Show:&nbsp;<select name="ctl00$phBody$acdgEventHistory$ctl08$acdgEventHistory_pageSize" onchange="javascript:setTimeout('__doPostBack(\'ctl00$phBody$acdgEventHistory$ctl08$acdgEventHistory_pageSize\',\'\')', 0)" id="ctl00_phBody_acdgEventHistory_ctl08_acdgEventHistory_pageSize">
+							<option value="10">10 rows per page</option>
+							<option selected="selected" value="25">25 rows per page</option>
+							<option value="50">50 rows per page</option>
+							<option value="100">100 rows per page</option>
+
+						</select></td><td align="center">&nbsp;</td><td align="right"><table border="0">
+							<tbody><tr>
+								<td align="right">Go to page:&nbsp;</td><td align="left"><table border="0">
+									<tbody><tr>
+										<td><span>1</span></td>
+									</tr>
+								</tbody></table></td>
+							</tr>
+						</tbody></table></td>
+					</tr>
+				</tbody></table></td>
+			</tr>
+		</tbody></table>
+	</div>
+    </div> -->

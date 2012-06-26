@@ -3820,7 +3820,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav .active > a:hover {
   color: #E4701E; /*CHANGED*/
   text-decoration: none;
-  font-weight:bold;
+  font-weight:bold; /*CHANGED*/
   background-color: #222222;
 }
 
