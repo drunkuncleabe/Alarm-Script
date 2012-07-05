@@ -71,3 +71,41 @@ $("[href='/web/Notifications/AddressBook.aspx']").parent().hide();//Hide Notific
 $("[href='/web/Notifications/ImageSensor.aspx']").parent().hide();//Hide IS Tab
 $("[href='/web/OtherApps/MobileSite.aspx']").parent().hide();//Hide Video Tab
 $(".top_nav").hide(); //hide what is left of the top nav
+
+//Add padding after the nav, before the main content
+$("head").append("<style type=\"text/css\">body {padding-top: 60px; padding-bottom: 40px;}</style>");
+
+/*****************************************************************************************************************************
+/ Build the Summary Page body
+******************************************************************************************************************************/
+
+$("#content_container").addClass("container"); //add container class to the main container
+
+//Add Home & Status row
+$("#content_container").prepend("<div class=\"row\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:400px; width:580px; background-position: top left; background-repeat:no-repeat;\"><h1>My Home</h1></div><div class=\"span4\" id=\"home_status\"></div></div>");
+
+//Move stuff into Status section
+$("#home_status").append($("#ctl00_phBody_ArmingStateWidget_imgState").detach()); //move main content out to after header
+$("#home_status").append($("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").detach()); //move in sensor status
+
+//Add History row
+$("#content_container > .row").after("<div class=\"row\"><div class=\"span12 well\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
+
+//Move and edit stuff for History
+$("#home_history").append($("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").detach()); // move the history contents
+
+//Hide the rest of the stuff I don't want to show right now
+$(".widget_refresh").remove(); //hide all refresh widgets
+$("#main_header").after($("#content_container").detach()); //move main content out to after header
+$(".features_tooltip_box").remove(); //hide the VIF bar
+$("script:contains(PopupDownloadOptions)").remove(); //hide the Download Options script pop-up
+$("#ctl00_phBody_RecentEventsWidget_ImageEventPopup1_upPopupInfo").remove(); //remove it
+$("#ctl00_phBody_RecentEventsWidget_ImageEventPopup1_confirmPanel").remove(); //remove it
+$("#main_content").remove(); //remove what is left in the main content
+$("#ctl00_phBody_SensorStatusWidget_pnlSensorWidget").remove(); //remove remaining sensor stuff
+$("#ctl00_phBody_RecentEventsWidget_pnlEventsWidget").remove(); //remove remaining history stuff
+
+//modifications to the footer
+$(".footer_part1").remove(); //hide it
+$(".time_served").remove(); //hide it
+$(".main_footer").wrap("<footer></footer>"); //wrap with footer tag
