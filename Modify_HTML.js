@@ -14,6 +14,7 @@ function removejscssfile(filename, filetype){
 removejscssfile("jquery-1.6.4.min.js", "js") //remove all occurences of "somescript.js" on page
 removejscssfile("main.css", "css") //remove all occurences "somestyle.css" on page
 removejscssfile("print.css", "css") //remove all occurences "somestyle.css" on page
+removejscssfile("VideoDownloadOptions", "js") //remove all occurences "somestyle.css" on page
 
 /*****************************************************************************************************************************
 / Build the main navigation
@@ -38,74 +39,115 @@ $("#collapse_container > .main").attr("class","nav-collapse"); //change class to
 $(".nav-collapse").prepend($(".main_nav > .nav").detach()); //move the main nav to the correct location
 $(".nav-collapse > .nav > .m_linkon").addClass("active"); //make the selected link show selected
 $("[href='/web/Security/SystemSummary.aspx']").html("<i class=\"icon-home icon-white\"></i> Summary</a>");//add icon to Summary tab
-$(".nav-collapse > .nav > li:first").after("<li id=\"security_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"/web/Security/Sensors.aspx\"><i class=\"icon-lock icon-white\"></i> Security</a></li>"); //for security tab link deeper - sensors for now
-$(".nav-collapse > .nav > #security_nav").after("<li id=\"rule_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-list icon-white\"></i> Rules</a></li>"); //add a Rules tab
-$(".nav-collapse > .nav > #rule_nav").after("<li id=\"energy_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-leaf icon-white\"></i> Energy</a></li>"); //add an Energy tab
-$(".nav-collapse > .nav > #energy_nav").after("<li id=\"users_nav\" class=\"m_link\"><a class=\"sub_link\" href=\"#\"><i class=\"icon-user icon-white\"></i> Users</a></li>"); //add a Users tab
+$(".nav-collapse > .nav > li:first").after("<li id=\"devices_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\"  data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-lock icon-white\"></i> Devices <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></a></li>"); //add devices tab
+$(".nav-collapse > .nav > #devices_nav").after("<li id=\"rule_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\"  data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-list icon-white\"></i> Rules <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></a></li>"); //add a Rules tab
+$(".nav-collapse > .nav > #rule_nav").after("<li id=\"energy_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\"  data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-leaf icon-white\"></i> Energy <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></a></li>"); //add an Energy tab
+$(".nav-collapse > .nav > #energy_nav").after("<li id=\"users_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\"  data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-user icon-white\"></i> Users <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></a></li>"); //add a Users tab
 $(".nav-collapse > .nav > #users_nav").after("<li id=\"help_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-question-sign icon-white\"></i> Help <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></li>"); //add a help dropdown tab
 $(".nav-collapse > .nav").after($("#ctl00_HeaderLinks1_lblLoginName").detach()); //move login name to header
 $("#ctl00_HeaderLinks1_lblLoginName").wrap("<ul class=\"nav pull-right\"><li id=\"profile_nav\" class=\"dropdown\"><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"></a><ul class=\"dropdown-menu\"></ul></li></ul>"); //add  tags to make name a Profile dropdown tab pulled to the right
  $("#ctl00_HeaderLinks1_lblLoginName").after(" <b class=\"caret\"></b>"); //add carat to dropdown
 
+ //HIde items not needed as top level tabs - some links will be added back in manually as sub items later in code
+$("[href='/web/Video/LiveView.aspx']").parent().hide();//Hide Video Tab
+$("[href='/web/Automation/Devices.aspx']").parent().hide();//Hide emPower Tab
+$("[href='/web/History/EventHistory.aspx']").parent().hide();//Hide History Tab
+$("[href='/web/Notifications/AddressBook.aspx']").parent().hide();//Hide Notifications Tab
+$("[href='/web/ImageSensor/EventGallery.aspx']").parent().hide();//Hide IS Tab
+$("[href='/web/OtherApps/MobileSite.aspx']").parent().hide();//Hide Mobile Tab
+$("[href='/web/Enterprise/Enterprise.aspx']").parent().hide();//Hide Enterprise Tab
+$("[href='/web/Commercial/ArmingSupervision.aspx']").parent().hide();//Hide Commercia Tab
+$(".top_nav").hide(); //hide what is left of the top nav
+ 
+//Links under rules
+$("#rule_nav > ul").append("<a class=\"sub_link\" href=\"/web/Notifications/Alarms.aspx\">Notifications</a>"); //recreate the Notifications link
+$("#rule_nav > ul").append("<a class=\"sub_link\" href=\"/web/Video/RecordingSchedules.aspx\">Video</a>"); //Vid Recording link
+$("#rule_nav > ul").append("<a class=\"sub_link\" href=\"/web/ImageSensor/Rules.aspx\">Image Sensor</a>"); //IS link
+$("#rule_nav > ul").append("<a class=\"sub_link\" href=\"/web/Automation/Rules.aspx\">Home Automation</a>"); //IS link
+$("#rule_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
+ 
+ //Links under Energy
+$("#users_nav > ul").append("<a class=\"sub_link\" href=\"/web/Notifications/AddressBook.aspx\">Address Book</a>"); 
+$("#users_nav > ul").append("<a class=\"sub_link\" href=\"/web/Security/UserCodes.aspx\">User Codes</a>");
+$("#users_nav > ul").append("<a class=\"sub_link\" href=\"/web/Profile/ManageLogins.aspx\">Manage Logins</a>");
+$("#users_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
+
+ //Links under Users
+$("#energy_nav > ul").append("<a class=\"sub_link\" href=\"/web/Energy/EnergyConsumption.aspx\">Usage</a>"); 
+$("#energy_nav > ul").append("<a class=\"sub_link\" href=\"/web/Automation/Thermostats.aspx\">Thermostats</a>");
+$("#energy_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
+ 
+ //LInks under Devices
+$("#devices_nav > ul").append("<a class=\"sub_link\" href=\"/web/Security/Sensors.aspx\">Sensors</a>"); 
+$("#devices_nav > ul").append("<a class=\"sub_link\" href=\"/web/Automation/Locks.aspx\">Locks</a>");
+$("#devices_nav > ul").append("<a class=\"sub_link\" href=\"/web/Automation/ZWaveLights.aspx\">Lights</a>");
+$("#devices_nav > ul").append("<a class=\"sub_link\" href=\"/web/Automation/Thermostats.aspx\">Thermostats</a>");
+$("#devices_nav > ul").append("<a class=\"sub_link\" href=\"/web/Video/LiveView.aspx\">Video Cameras</a>");
+$("#devices_nav > ul").append("<a class=\"sub_link\" href=\"/web/ImageSensor/EventGallery.aspx\">Image Sensors</a>");
+$("#devices_nav > ul").append("<a class=\"sub_link\" href=\"/web/OtherApps/MobileSite.aspx\">Mobile Apps</a>");
+$("#devices_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
+ 
 //Links under help
 $("#help_nav > ul").prepend($("#ctl00_HeaderLinks1_lnkSupportCenter").detach()); //move Support link under help tab
 $("#help_nav > ul").prepend($("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").detach()); //move page help under help tab
 $(".page_help_link").remove(); //remove the div that held the help link
-$("#help_nav > ul > a").attr("data-toggle","tab"); //add classes to all links
 $("#help_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").removeAttr("style"); //remove style from help link 
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").attr("style","cursor : pointer"); //add the pointer style back
 $("#ctl00_HeaderLinks1_helpLink_lnkHelpTextOnly").text("About this page");  //change the text of the help link
 
 //LInks under User Profile
-$("#profile_nav > ul").append("<a class=\"sub_link\" href=\"../Logout.aspx\">Logout</a>"); //recreate the logout link
-$("#profile_nav > ul").prepend($("[href='/web/Profile/AwarenessLevel.aspx']").parent().detach());
-$("#profile_nav > ul > a").attr("data-toggle","tab"); //add classes to all links
+$("[href='/web/Profile/AwarenessLevel.aspx']").parent().remove();
+$("[href='/web/Profile/Password.aspx']").parent().remove(); //for enterprise accounts that don't have the VIF
+$("#profile_nav > ul").append("<a class=\"sub_link\" href=\"/web/Profile/Password.aspx\">Login Info</a>");
+$("#profile_nav > ul").append("<a class=\"sub_link\" href=\"/web/Profile/AccountInfo.aspx\">Account Info</a>");
+$("#profile_nav > ul").append("<a class=\"sub_link\" href=\"/web/Profile/SystemInfo.aspx\">System Info</a>");
+$("#profile_nav > ul").append("<a class=\"sub_link\" href=\"/web/Profile/MergeLoginStep1.aspx\">Multi-System Access</a>");
+$("#profile_nav > ul").append("<li class=\"divider\"></li><a class=\"sub_link\" href=\"/web/Logout.aspx\">Logout</a>"); //recreate the logout link
 $("#profile_nav > ul > a").wrap("<li></li>");  //wrap all links with list item
 
-//HIde items not needed as top level tabs
-$("[href='/web/Video/LiveView.aspx']").parent().hide();//Hide Video Tab
-$("[href='/web/Automation/Devices.aspx']").parent().hide();//Hide emPower Tab
-$("[href='/web/History/EventHistory.aspx']").parent().hide();//Hide History Tab
-$("[href='/web/Notifications/AddressBook.aspx']").parent().hide();//Hide Notifications Tab
-$("[href='/web/Notifications/ImageSensor.aspx']").parent().hide();//Hide IS Tab
-$("[href='/web/OtherApps/MobileSite.aspx']").parent().hide();//Hide Video Tab
-$(".top_nav").hide(); //hide what is left of the top nav
-
 //Add padding after the nav, before the main content
-$("head").append("<style type=\"text/css\">body {padding-top: 60px; padding-bottom: 40px;}</style>");
+$("head").append("<style type=\"text/css\">#main_content {padding-top: 60px; padding-bottom: 0px;}</style>");
 
 /*****************************************************************************************************************************
 / Build the Summary Page body
 ******************************************************************************************************************************/
-
 $("#content_container").addClass("container"); //add container class to the main container
 
 //Add Home & Status row
-$("#content_container").prepend("<div class=\"row\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:400px; width:580px; background-position: top left; background-repeat:no-repeat;\"><h1>My Home</h1></div><div class=\"span4\" id=\"home_status\"></div></div>");
+$("#content_container").prepend("<div class=\"row\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:300px; width:580px; background-position: top left; background-repeat:no-repeat;\"><h1>My Home</h1></div><div class=\"span4\" id=\"home_status\"></div></div>");
 
 //Move stuff into Status section
-$("#home_status").append($("#ctl00_phBody_ArmingStateWidget_imgState").detach()); //move main content out to after header
+$("#home_status").append($("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").detach()); //move current issues in
+$("#home_status").append($("#ctl00_phBody_ArmingStateWidget_imgState").detach()); //move in current arming status
 $("#home_status").append($("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").detach()); //move in sensor status
 
+//START HERE REMOVE BELOW******************************************************************************************************
+$("#ctl00_phBody_ArmingStateWidget_pnlArmingWidget").remove();
+
 //Add History row
-$("#content_container > .row").after("<div class=\"row\"><div class=\"span12 well\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
+$("#content_container > .row").after("<div class=\"row\"><div class=\"span12\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
 
 //Move and edit stuff for History
 $("#home_history").append($("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").detach()); // move the history contents
+$(".events_widget_date").addClass("label label-info"); //add label class to day of the week in history
+$("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").after("<h3><small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3>"); //add history link at the bottom of the page
 
 //Hide the rest of the stuff I don't want to show right now
 $(".widget_refresh").remove(); //hide all refresh widgets
-$("#main_header").after($("#content_container").detach()); //move main content out to after header
+$(".main_nav").remove(); //hide all refresh widgets
+$(".sub_nav").remove(); //hide all refresh widgets
 $(".features_tooltip_box").remove(); //hide the VIF bar
-$("script:contains(PopupDownloadOptions)").remove(); //hide the Download Options script pop-up
-$("#ctl00_phBody_RecentEventsWidget_ImageEventPopup1_upPopupInfo").remove(); //remove it
-$("#ctl00_phBody_RecentEventsWidget_ImageEventPopup1_confirmPanel").remove(); //remove it
-$("#main_content").remove(); //remove what is left in the main content
+//$("#ctl00_phBody_RecentEventsWidget_ImageEventPopup1_upPopupInfo").remove(); //remove it
+//$("#ctl00_phBody_RecentEventsWidget_ImageEventPopup1_confirmPanel").remove(); //remove it
+//$("#main_content").remove(); //remove what is left in the main content
 $("#ctl00_phBody_SensorStatusWidget_pnlSensorWidget").remove(); //remove remaining sensor stuff
 $("#ctl00_phBody_RecentEventsWidget_pnlEventsWidget").remove(); //remove remaining history stuff
+
+
 
 //modifications to the footer
 $(".footer_part1").remove(); //hide it
 $(".time_served").remove(); //hide it
-$(".main_footer").wrap("<footer></footer>"); //wrap with footer tag
+$(".main_footer").wrap("<footer class=\"form-actions\"></footer>"); //wrap with footer tag
+$("footer").prepend("<p class=\"pull-right\"><a href=\"#\">Back to top</a></p>");

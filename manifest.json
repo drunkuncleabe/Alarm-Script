@@ -8,7 +8,7 @@
 "run_at": "document_end",
 //"matches": ["https://www.alarm.com/*"], //where your script should be injected
 "matches": ["https://www.alarm.com/web/Security/SystemSummary.aspx"],
-"css": ["bootstrap.css", "bootstrap-responsive.css"], //the name of the file to be injected
+"css": ["bootstrap.css", "bootstrap-responsive.css", "abe_custom_css.css"], //the name of the file to be injected
 //"js": ["Modify_HTML.js", "add_latest_bootstrapJS.js", "add_latest_jQuery.js"] //java script files to be included
 "js": ["./js/jquery.js", "./js/bootstrap.min.js","Modify_HTML.js"] //java script files to be included
 }
