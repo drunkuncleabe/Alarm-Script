@@ -31,10 +31,13 @@ $(".widget.features_widget.round5").remove(); //remove the features widget
 $("#main_header").attr("class","navbar navbar-fixed-top"); //add classes to header
 $("#main_header").wrapInner("<div class=\"navbar-inner\"><div class=\"container\" id=\"collapse_container\"></div></div>"); //add divs for  nav
 $("#collapse_container").prepend("<button type=\"button\" class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".nav-collapse\"><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span></button>"); //add divs for collapsed nav
+
 $("#collapse_container").append($(".logo").detach()); //move brand outside of the navigation
-$("#ctl00_HeaderLogo1").text("[ Alarm.com Logo ]") //for now replace logo with text link ***later get better icon / smaller logo or make this separate from logo
+//var logoURL= chrome.extension.getURL("logo_orange.png"); //get URL for extension resource - not messing with this for now. logo keeps resizing
+-$("#ctl00_HeaderLogo1").text("Alarm.com") //replace logo with text link
 $(".logo").attr("class","brand"); //change class of logo/home
 $("#collapse_container").append($("#collapse_container > .main").detach()); //move the other header content after the brand
+
 $("#collapse_container > .main").attr("class","nav-collapse"); //change class to nav-collapse
 $(".nav-collapse").prepend($(".main_nav > .nav").detach()); //move the main nav to the correct location
 $(".nav-collapse > .nav > .m_linkon").addClass("active"); //make the selected link show selected
@@ -115,43 +118,53 @@ $("head").append("<style type=\"text/css\">#main_content {padding-top: 60px; pad
 $("#content_container").addClass("container"); //add container class to the main container
 
 //Add Home & Status row
-$("#content_container").prepend("<div class=\"row-fluid\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:300px; background-position: top left; background-repeat:no-repeat;\"><h1>My Home</h1></div><div class=\"span4\" id=\"home_status\"></div></div>");
+$("#content_container").prepend("<div class=\"row-fluid\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:300px; background-position: top left; background-repeat:no-repeat;\"></div><div class=\"span4\" id=\"home_status\"></div></div>");
+$("#my_home").append($("#ctl00_HeaderLinks1_lblLoginSystem").detach()); //if only one system
+$("#ctl00_HeaderLinks1_lblLoginSystem").wrap("<h4></h4>");
+$("#my_home").append($("#ctl00_HeaderLinks1_ddlCustomers").detach());  //if multiple systems
 
-//Status section
+//***Status section
 
 //Current Issues
 $("#home_status").append($("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").detach()); //move current issues in
+$("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").prepend("<div class=\"events_widget_date label label-warning\">System Issues!</div>");
+$("#ctl00_phBody_CurrentIssuesWidget_pnlContainer > div > table > tbody > tr:eq(0) > td:eq(0)").remove();
 
 //System Status
 $("#home_status").append($("#ctl00_phBody_ArmingStateWidget_imgState").detach()); //move in current arming status
-$("#ctl00_phBody_ArmingStateWidget_imgState").wrap("<div class=\"dropdown\"><a class=\"btn dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"></a></div>");
+$("#ctl00_phBody_ArmingStateWidget_imgState").wrap("<div id=\"arming_dropdown\" class=\"events_widget_event dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"></a></div>");
 $("#home_status > div").append("<ul class=\"dropdown-menu\"><li><a href=\"#\"></a></li><li><a href=\"#\"></a></li><li><a href=\"#\"></a></li></ul>");
-$("#home_status > div > ul > li:eq(0) > a").append($("#ctl00_phBody_ArmingStateWidget_btnDisarm").detach()); //move disarm button
-$("#home_status > div > ul > li:eq(1) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmStay").detach()); //move arm stay button
-$("#home_status > div > ul > li:eq(2) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmAway").detach()); //move arm away button
+$("#arming_dropdown > ul > li:eq(0) > a").append($("#ctl00_phBody_ArmingStateWidget_btnDisarm").detach()); //move disarm button
+$("#arming_dropdown > ul > li:eq(1) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmStay").detach()); //move arm stay button
+$("#arming_dropdown > ul > li:eq(2) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmAway").detach()); //move arm away button
 $("[id^='ctl00_phBody_ArmingStateWidget_btn']").attr({width:"50",height:"50"});
+//$("#home_status > .dropdown").before("<div class=\"label label-info\">Arming Status</div>");
+$("#ctl00_phBody_ArmingStateWidget_pnlArmingWidget").remove();
 
 //Sensors
 $("#home_status").append($("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").detach()); //move in sensor status
-$("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").prepend("<div class=\"events_widget_date label label-info\">Sensors</div>");
+$("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").prepend("<div class=\"events_widget_event\"><strong>Sensors</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>");
+$("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate > table").addClass("table table-condensed");
+
+/* $("#home_status").append("<div class=\"events_widget_event\"><strong>Video</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>");
+
+$("#home_status").append("<div class=\"events_widget_event\"><strong>Image Sensor</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>");
+
+$("#home_status").append("<div class=\"events_widget_event\"><strong>Locks</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>"); */
 
 //Trying Locks...
-$.ajax({ url:"https://www.alarm.com/web/Automation/Locks.aspx", dataType: "html", success:function(result) {
+/* $.ajax({ url:"https://www.alarm.com/web/Automation/Locks.aspx", dataType: "html", success:function(result) {
 //var lockHTML = $("<div>").html(data).getElementsById("lockStatusTable");
 var lockHTML = getElementsById("lockStatusTable");
 $("#home_status").append(lockHTML);
-}});
-
-
-//START HERE REMOVE BELOW******************************************************************************************************
-//$("#ctl00_phBody_ArmingStateWidget_pnlArmingWidget").remove();
+}}); */
 
 //Add History row
 $("#content_container > .row-fluid").after("<div class=\"row-fluid\"><div class=\"span12\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
 
 //Move and edit stuff for History
 $("#home_history").append($("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").detach()); // move the history contents
-$(".events_widget_date").addClass("label label-info"); //add label class to day of the week in history
+$("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate > .events_widget_date").addClass("label label-info"); //add label class to day of the week in history
 $("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").after("<h3><small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3>"); //add history link at the bottom of the page
 
 //Hide the rest of the stuff I don't want to show right now
