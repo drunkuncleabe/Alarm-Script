@@ -115,18 +115,39 @@ $("head").append("<style type=\"text/css\">#main_content {padding-top: 60px; pad
 $("#content_container").addClass("container"); //add container class to the main container
 
 //Add Home & Status row
-$("#content_container").prepend("<div class=\"row\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:300px; width:580px; background-position: top left; background-repeat:no-repeat;\"><h1>My Home</h1></div><div class=\"span4\" id=\"home_status\"></div></div>");
+$("#content_container").prepend("<div class=\"row-fluid\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:300px; background-position: top left; background-repeat:no-repeat;\"><h1>My Home</h1></div><div class=\"span4\" id=\"home_status\"></div></div>");
 
-//Move stuff into Status section
+//Status section
+
+//Current Issues
 $("#home_status").append($("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").detach()); //move current issues in
+
+//System Status
 $("#home_status").append($("#ctl00_phBody_ArmingStateWidget_imgState").detach()); //move in current arming status
+$("#ctl00_phBody_ArmingStateWidget_imgState").wrap("<div class=\"dropdown\"><a class=\"btn dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"></a></div>");
+$("#home_status > div").append("<ul class=\"dropdown-menu\"><li><a href=\"#\"></a></li><li><a href=\"#\"></a></li><li><a href=\"#\"></a></li></ul>");
+$("#home_status > div > ul > li:eq(0) > a").append($("#ctl00_phBody_ArmingStateWidget_btnDisarm").detach()); //move disarm button
+$("#home_status > div > ul > li:eq(1) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmStay").detach()); //move arm stay button
+$("#home_status > div > ul > li:eq(2) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmAway").detach()); //move arm away button
+$("[id^='ctl00_phBody_ArmingStateWidget_btn']").attr({width:"50",height:"50"});
+
+//Sensors
 $("#home_status").append($("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").detach()); //move in sensor status
+$("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").prepend("<div class=\"events_widget_date label label-info\">Sensors</div>");
+
+//Trying Locks...
+$.ajax({ url:"https://www.alarm.com/web/Automation/Locks.aspx", dataType: "html", success:function(result) {
+//var lockHTML = $("<div>").html(data).getElementsById("lockStatusTable");
+var lockHTML = getElementsById("lockStatusTable");
+$("#home_status").append(lockHTML);
+}});
+
 
 //START HERE REMOVE BELOW******************************************************************************************************
-$("#ctl00_phBody_ArmingStateWidget_pnlArmingWidget").remove();
+//$("#ctl00_phBody_ArmingStateWidget_pnlArmingWidget").remove();
 
 //Add History row
-$("#content_container > .row").after("<div class=\"row\"><div class=\"span12\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
+$("#content_container > .row-fluid").after("<div class=\"row-fluid\"><div class=\"span12\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
 
 //Move and edit stuff for History
 $("#home_history").append($("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").detach()); // move the history contents
