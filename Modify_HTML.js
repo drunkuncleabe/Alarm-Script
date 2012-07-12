@@ -14,7 +14,6 @@ function removejscssfile(filename, filetype){
 removejscssfile("jquery-1.6.4.min.js", "js") //remove all occurences of "somescript.js" on page
 removejscssfile("main.css", "css") //remove all occurences "somestyle.css" on page
 removejscssfile("print.css", "css") //remove all occurences "somestyle.css" on page
-//removejscssfile("VideoDownloadOptions", "js") //remove all occurences "somestyle.css" on page
 
 /*****************************************************************************************************************************
 / Build the main navigation
@@ -129,13 +128,15 @@ $("#my_home").append($("#ctl00_HeaderLinks1_ddlCustomers").detach());  //if mult
 
 //Current Issues
 $("#home_status").append($("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").detach()); //move current issues in
-$("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").prepend("<div class=\"events_widget_date label label-warning\">System Issues!</div>");
+$("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").addClass("alert fade in");
+$("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").prepend("<button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button><strong>Oh snap! Best fix yo system pronto.</strong>");
 $("#ctl00_phBody_CurrentIssuesWidget_pnlContainer > div > table > tbody > tr:eq(0) > td:eq(0)").remove();
 
+//VIF Status thing
 $("#home_status").append("<div class=\"progress progress-success\" style=\"margin-bottom: 3px;\"><div class=\"bar\" style=\"width: 80%\"></div></div>"); //add fake system setup status
 $("#home_status").append("<div style=\"margin-bottom: 30px;\"><em><a href=\"/web/Profile/AwarenessLevel.aspx\" class=\"pull-right\">Setup 80% complete</a></em></div>"); //add fake system setup message
 
-//System Status
+//System Arming Status
 $("#home_status").append($("#ctl00_phBody_ArmingStateWidget_imgState").detach()); //move in current arming status
 $("#ctl00_phBody_ArmingStateWidget_imgState").wrap("<div id=\"arming_dropdown\" class=\"events_widget_event dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"></a></div>");
 $("#home_status > div").append("<ul class=\"dropdown-menu\"><li><a href=\"#\"></a></li><li><a href=\"#\"></a></li><li><a href=\"#\"></a></li></ul>");
@@ -157,7 +158,7 @@ $("#home_status").append("<div id=\"thermo_summary\" data-toggle=\"collapse\" da
 $("#thermo_table").load("/web/Automation/Thermostats.aspx #ctl00_phBody_pnlUpdateTemp");
 $("#thermo_table").ajaxComplete(function(){
 	  $("#ctl00_phBody_pnlUpdateTemp > h3").remove();
-	  $("#ctl00_phBody_pnlUpdateTemp > table").attr("style","margin-top: 8px");
+	  $("#ctl00_phBody_pnlUpdateTemp > table").attr("style","margin-top: 8px; margin-bottom: 5px;");
 
 });
 
@@ -196,6 +197,17 @@ $("#left_content").append("<div class=\"\" id=\"home_history\"><h3>Recent Histor
 $("#home_history").append($("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").detach()); // move the history contents
 $("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate > .events_widget_date").addClass("label label-info"); //add label class to day of the week in history
 $("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").after("<h3><small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3>"); //add history link at the bottom of the page
+
+//Create fake notification stuff for the History
+$(".events_widget_event").hover(
+  function () {
+    $(this).append($("<a href=\"/web/Notifications/Alarms.aspx\" class=\"hover pull-right\">create notification</a>").fadeIn(350));
+  }, 
+  function () {
+    $(this).find("a:last").remove();
+  }
+);
+
 
 //Hide the rest of the stuff I don't want to show right now
 $(".widget_refresh").remove(); //hide all refresh widgets
