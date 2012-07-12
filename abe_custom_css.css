@@ -13,10 +13,15 @@
   margin-top: 5px;
 }
 
+/*makes the menus appear on hover*/
 ul.nav li.dropdown:hover ul.dropdown-menu{
-    display: block;    
+    display: block; 
 }
+a.menu:after, .dropdown-toggle:after {
+    content: none;
+}
+
 input[type="image"]
  {
-  width: 50px;
+  width: 72px;
   }

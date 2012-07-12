@@ -14,7 +14,7 @@ function removejscssfile(filename, filetype){
 removejscssfile("jquery-1.6.4.min.js", "js") //remove all occurences of "somescript.js" on page
 removejscssfile("main.css", "css") //remove all occurences "somestyle.css" on page
 removejscssfile("print.css", "css") //remove all occurences "somestyle.css" on page
-removejscssfile("VideoDownloadOptions", "js") //remove all occurences "somestyle.css" on page
+//removejscssfile("VideoDownloadOptions", "js") //remove all occurences "somestyle.css" on page
 
 /*****************************************************************************************************************************
 / Build the main navigation
@@ -41,6 +41,7 @@ $("#collapse_container").append($("#collapse_container > .main").detach()); //mo
 $("#collapse_container > .main").attr("class","nav-collapse"); //change class to nav-collapse
 $(".nav-collapse").prepend($(".main_nav > .nav").detach()); //move the main nav to the correct location
 $(".nav-collapse > .nav > .m_linkon").addClass("active"); //make the selected link show selected
+$(".nav-collapse > .nav").addClass("nav-pills"); //fatter nav
 $("[href='/web/Security/SystemSummary.aspx']").html("<i class=\"icon-home icon-white\"></i> Summary</a>");//add icon to Summary tab
 $(".nav-collapse > .nav > li:first").after("<li id=\"devices_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\"  data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-lock icon-white\"></i> Devices <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></a></li>"); //add devices tab
 $(".nav-collapse > .nav > #devices_nav").after("<li id=\"rule_nav\" class=\"m_link dropdown\"><a class=\"dropdown-toggle\"  data-toggle=\"dropdown\" href=\"#\"><i class=\"icon-list icon-white\"></i> Rules <b class=\"caret\"></b></a><ul class=\"dropdown-menu\"></ul></a></li>"); //add a Rules tab
@@ -118,9 +119,10 @@ $("head").append("<style type=\"text/css\">#main_content {padding-top: 60px; pad
 $("#content_container").addClass("container"); //add container class to the main container
 
 //Add Home & Status row
-$("#content_container").prepend("<div class=\"row-fluid\"><div class=\"span8 well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:300px; background-position: top left; background-repeat:no-repeat;\"></div><div class=\"span4\" id=\"home_status\"></div></div>");
+$("#content_container").prepend("<div class=\"row-fluid\"><div class=\"span8\" id=\"left_content\"><div class=\"well\" id=\"my_home\" style=\"background-image: url(http://media.cdn-redfin.com/photo/57/bigphoto/295/FX7452295_2.jpg); height:200px; background-position: center left; background-repeat:no-repeat;\"></div></div><div class=\"span4\" id=\"home_status\"></div></div>");
 $("#my_home").append($("#ctl00_HeaderLinks1_lblLoginSystem").detach()); //if only one system
 $("#ctl00_HeaderLinks1_lblLoginSystem").wrap("<h4></h4>");
+$("#ctl00_HeaderLinks1_lblLoginSystem").addClass("events_widget_event");
 $("#my_home").append($("#ctl00_HeaderLinks1_ddlCustomers").detach());  //if multiple systems
 
 //***Status section
@@ -130,6 +132,9 @@ $("#home_status").append($("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").det
 $("#ctl00_phBody_CurrentIssuesWidget_pnlContainer").prepend("<div class=\"events_widget_date label label-warning\">System Issues!</div>");
 $("#ctl00_phBody_CurrentIssuesWidget_pnlContainer > div > table > tbody > tr:eq(0) > td:eq(0)").remove();
 
+$("#home_status").append("<div class=\"progress progress-success\" style=\"margin-bottom: 3px;\"><div class=\"bar\" style=\"width: 80%\"></div></div>"); //add fake system setup status
+$("#home_status").append("<div style=\"margin-bottom: 30px;\"><em><a href=\"/web/Profile/AwarenessLevel.aspx\" class=\"pull-right\">Setup 80% complete</a></em></div>"); //add fake system setup message
+
 //System Status
 $("#home_status").append($("#ctl00_phBody_ArmingStateWidget_imgState").detach()); //move in current arming status
 $("#ctl00_phBody_ArmingStateWidget_imgState").wrap("<div id=\"arming_dropdown\" class=\"events_widget_event dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"></a></div>");
@@ -137,30 +142,55 @@ $("#home_status > div").append("<ul class=\"dropdown-menu\"><li><a href=\"#\"></
 $("#arming_dropdown > ul > li:eq(0) > a").append($("#ctl00_phBody_ArmingStateWidget_btnDisarm").detach()); //move disarm button
 $("#arming_dropdown > ul > li:eq(1) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmStay").detach()); //move arm stay button
 $("#arming_dropdown > ul > li:eq(2) > a").append($("#ctl00_phBody_ArmingStateWidget_btnArmAway").detach()); //move arm away button
-$("[id^='ctl00_phBody_ArmingStateWidget_btn']").attr({width:"50",height:"50"});
+$("[id^='ctl00_phBody_ArmingStateWidget_btn']").attr({width:"72",height:"72"});
 //$("#home_status > .dropdown").before("<div class=\"label label-info\">Arming Status</div>");
 $("#ctl00_phBody_ArmingStateWidget_pnlArmingWidget").remove();
 
 //Sensors
 $("#home_status").append($("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").detach()); //move in sensor status
-$("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").prepend("<div class=\"events_widget_event\"><strong>Sensors</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>");
+$("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate").prepend("<div class=\"events_widget_event\"><strong>Sensors</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>settings<\em></a></div>");
 $("#ctl00_phBody_SensorStatusWidget_pnlSensorsUpdate > table").addClass("table table-condensed");
 
-/* $("#home_status").append("<div class=\"events_widget_event\"><strong>Video</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>");
+//Temp Info
+$("#home_status").append("<div id=\"thermo_summary\" data-toggle=\"collapse\" data-target=\"#thermo_table\"><div class=\"events_widget_event\"><strong>Inside Temp</strong><a href=\"/web/Automation/Thermostats.aspx\" class=\"pull-right\"><em>change<\em></a></div><div id=\"thermo_table\" class=\"in collapse\"></div></div>"); 
+//Ajax in Thermostat info
+$("#thermo_table").load("/web/Automation/Thermostats.aspx #ctl00_phBody_pnlUpdateTemp");
+$("#thermo_table").ajaxComplete(function(){
+	  $("#ctl00_phBody_pnlUpdateTemp > h3").remove();
+	  $("#ctl00_phBody_pnlUpdateTemp > table").attr("style","margin-top: 8px");
 
-$("#home_status").append("<div class=\"events_widget_event\"><strong>Image Sensor</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>");
+});
 
-$("#home_status").append("<div class=\"events_widget_event\"><strong>Locks</strong><a href=\"/web/Security/Sensors.aspx\" class=\"pull-right\"><em>manage<\em></a></div>"); */
+// Lock Summary
+$("#home_status").append("<div id=\"lock_summary\"><div class=\"events_widget_event\"><strong>Locks</strong><a href=\"/web/Automation/Locks.aspx\" class=\"pull-right\"><em>settings<\em></a></div><div id=\"lock_table\"></div></div>"); 
+//Ajax in lock content...
+$("#lock_table").load("https://www.alarm.com/web/Automation/Locks.aspx #lockStatusTable");
+$("#lock_table").ajaxComplete(function(){
+  $("#lock_table > table").addClass("table table-condensed");
+});
 
-//Trying Locks...
-/* $.ajax({ url:"https://www.alarm.com/web/Automation/Locks.aspx", dataType: "html", success:function(result) {
-//var lockHTML = $("<div>").html(data).getElementsById("lockStatusTable");
-var lockHTML = getElementsById("lockStatusTable");
-$("#home_status").append(lockHTML);
-}}); */
+//Video Summary
+$("#home_status").append("<div id=\"video_summary\"><div class=\"events_widget_event\"><strong>Video</strong><a href=\"/web/Video/SettingsOverView.aspx\" class=\"pull-right\"><em>settings<\em></a></div><div id=\"video_table\"></div></div>");
+$ ("#video_table").wrapInner("<table class=\"table table-condensed\"><tbody></tbody></table>") // add inner table & tbody
+//Ajax in video camera names...
+$("#video_table > table > tbody").load("https://www.alarm.com/web/Video/LiveView.aspx [id*='CamName'] ");
+$("#video_table > table > tbody").ajaxComplete(function(){
+  $ ("#video_table > table > tbody > span").wrap("<tr><td></td></tr>"); // wrap each span with tr, td
+ // $ ("#video_table > table > tbody > tr > td").append("<a href=\"/web/Video/LiveView.aspx\" class=\"pull-right\">live view</a>");
+  });
 
-//Add History row
-$("#content_container > .row-fluid").after("<div class=\"row-fluid\"><div class=\"span12\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
+//Image Sensor Summary
+$("#home_status").append("<div id=\"is_summary\"><div class=\"events_widget_event\"><strong>Image Sensor</strong><a href=\"/web/ImageSensor/Settings.aspx\" class=\"pull-right\"><em>settings<\em></a></div><div id=\"is_table\"></div></div>");
+//Ajax in IS names...
+$("#is_table").load("/web/ImageSensor/PeekIn.aspx #ctl00_phBody_cblCameras ");
+$("#is_table").ajaxComplete(function(){
+  $("#is_table > table").addClass("table table-condensed");
+  $("#is_table > table > tbody > tr > td > input").remove();
+});
+
+//Add History*****
+// puts history below, full page width$("#content_container > .row-fluid").after("<div class=\"row-fluid\"><div class=\"span12\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div></div>");
+$("#left_content").append("<div class=\"\" id=\"home_history\"><h3>Recent History <small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3></div>"); //history in left content area only
 
 //Move and edit stuff for History
 $("#home_history").append($("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").detach()); // move the history contents
@@ -177,7 +207,6 @@ $(".features_tooltip_box").remove(); //hide the VIF bar
 //$("#main_content").remove(); //remove what is left in the main content
 $("#ctl00_phBody_SensorStatusWidget_pnlSensorWidget").remove(); //remove remaining sensor stuff
 $("#ctl00_phBody_RecentEventsWidget_pnlEventsWidget").remove(); //remove remaining history stuff
-
 
 
 //modifications to the footer
