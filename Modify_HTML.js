@@ -176,7 +176,7 @@ $ ("#video_table").wrapInner("<table class=\"table table-condensed\"><tbody></tb
 //Ajax in video camera names...
 $("#video_table > table > tbody").load("https://www.alarm.com/web/Video/LiveView.aspx [id*='CamName'] ");
 $("#video_table > table > tbody").ajaxComplete(function(){
-  $ ("#video_table > table > tbody > span").wrap("<tr><td></td></tr>"); // wrap each span with tr, td
+  $ ("#video_table > table > tbody > span").wrap("<tr><td><a href=\"/web/Video/LiveView.aspx\" class=\"\"></a></td></tr>"); // wrap each span with tr, td
  // $ ("#video_table > table > tbody > tr > td").append("<a href=\"/web/Video/LiveView.aspx\" class=\"pull-right\">live view</a>");
   });
 
@@ -187,6 +187,7 @@ $("#is_table").load("/web/ImageSensor/PeekIn.aspx #ctl00_phBody_cblCameras ");
 $("#is_table").ajaxComplete(function(){
   $("#is_table > table").addClass("table table-condensed");
   $("#is_table > table > tbody > tr > td > input").remove();
+  $("#is_table > table > tbody > tr > td > label").wrap("<a href=\"/web/ImageSensor/EventGallery.aspx\"></a>");
 });
 
 //Add History*****
@@ -199,7 +200,7 @@ $("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate > .events_widget_date").addC
 $("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate").after("<h3><small><a  class=\"pull-right\"href=\"/web/History/EventHistory.aspx\">view all history</a></small></h3>"); //add history link at the bottom of the page
 
 //Create fake notification stuff for the History
-$(".events_widget_event").hover(
+$("#ctl00_phBody_RecentEventsWidget_pnlEventsUpdate > .events_widget_event").hover(
   function () {
     $(this).append($("<a href=\"/web/Notifications/Alarms.aspx\" class=\"hover pull-right\">create notification</a>").fadeIn(350));
   }, 
@@ -207,7 +208,6 @@ $(".events_widget_event").hover(
     $(this).find("a:last").remove();
   }
 );
-
 
 //Hide the rest of the stuff I don't want to show right now
 $(".widget_refresh").remove(); //hide all refresh widgets
